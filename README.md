@@ -1,7 +1,8 @@
 # trabajoWeb2
   
-Fermin Robledo
-Juan Wagner
+Fermin Robledo. fermin4robledo@gmail.com //.
+
+Juan Wagner. aguswagnercalvo@hotmail.com //.
 
 Página tipo guía de películas.
 
