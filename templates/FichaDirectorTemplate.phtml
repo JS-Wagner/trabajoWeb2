@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Resultados de la búsqueda de películas</title>
+    <title>Resumen del Director</title>
 </head>
 <body>
-    <h1>Resultados de la búsqueda de películas</h1>
+    
     <?php if (isset($movies) && !empty($movies)): ?>
         <ul>
+        <h1>$director</h1>
             <?php foreach ($movies as $movie): ?>
                 <li>
                     <?php if (isset($movie->nombre)): ?>
@@ -42,9 +43,6 @@
         </ul>
     <?php else: ?>
         <p>No se encontraron películas que coincidan con la búsqueda.</p>
-        <p>
-            <a href="/tpo">Go back home.</a>
-        </p>
     <?php endif; ?>
 </body>
 </html>
