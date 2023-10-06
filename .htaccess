@@ -1,4 +1,14 @@
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ router.php [L]
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+    RewriteBase /tpo/
+
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+
+    RewriteRule \.(?:css|js|jpe?g|gif|png)$ - [L]
+    RewriteRule ^buscar/([^/]+)/?$ router.php?action=buscar&genres=$1 [QSA,L]
+    RewriteRule ^api/(.*)$ api-router.php?resource=$1 [QSA,L]
+    RewriteRule ^(.*)$ router.php?action=$1 [QSA,L]
+</IfModule>
+
+

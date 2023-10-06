@@ -1,14 +1,18 @@
 <?php
 require_once './modelos/MovieModel.php';
+require_once './vistas/MovieView.php';
 
 class MovieController
 {
     private $movieModel;
+    private $movieView;
 
     public function __construct()
     {
         $this->movieModel = new MovieModel();
+        $this->movieView = new MovieView();
     }
+ 
 
     private function checkRequiredData($data)
     {
@@ -19,23 +23,11 @@ class MovieController
         }
     }
 
-    public function showMoviesByGenres()
+    public function showMoviesByGenres($genres = [])
     {
         try {
             // Verificar si se proporcionó el parámetro 'genres'
-            if (isset($_GET['genres'])) {
-                $genresParam = $_GET['genres'];
-
-                // Si es una cadena, divide los géneros en un array
-                if (is_string($genresParam)) {
-                    $genres = explode(',', $genresParam);
-                } elseif (is_array($genresParam)) {
-                    $genres = $genresParam;
-                } else {
-                    // El parámetro 'genres' no es válido
-                    throw new InvalidArgumentException("El parámetro 'genres' no es válido");
-                }
-
+            if (!empty($genres)) {
                 // Construir dinámicamente la consulta SQL con la cláusula 'AND'
                 $sql = "SELECT * FROM peliculas WHERE ";
                 $conditions = array();
@@ -49,13 +41,15 @@ class MovieController
                 // Llama a la función del modelo con la consulta SQL y el array de géneros
                 $movies = $this->movieModel->getMoviesByGenres($sql, $genres);
 
-                // Incluir la vista directamente
-                //PRUEBAS DE CONSULTA SQL//
-                //echo "Consulta SQL: $sql<br>";
-                require_once './vistas/MovieView.phtml';
+                // Incluir la vista directamentea
+                $this->movieView->showTemplate($movies); // Muestra la vista
+
             } else {
-                // El parámetro 'genres' no se proporcionó
-                throw new InvalidArgumentException("Falta el dato requerido: genres");
+                // Si no se proporcionaron géneros, muestra todas las películas
+                //$movies = $this->movieModel->getAllMovies();
+
+                // Incluir la vista directamente
+                //$this->movieView->showTemplate();
             }
         } catch (InvalidArgumentException $e) {
             // Manejo de error
@@ -71,7 +65,7 @@ class MovieController
             $movies = $this->movieModel->getMoviesByYear($year);
 
             // Incluir la vista directamente
-            require_once './vistas/MovieView.phtml';
+            $this->movieView->showTemplate();
         } catch (InvalidArgumentException $e) {
             // Manejo de error
             echo "Error: " . $e->getMessage();
@@ -86,7 +80,7 @@ class MovieController
             $movies = $this->movieModel->getMoviesByDirector($director);
 
             // Incluir la vista directamente
-            require_once './vistas/MovieView.phtml';
+            $this->movieView->showTemplate();;
         } catch (InvalidArgumentException $e) {
             // Manejo de error
             echo "Error: " . $e->getMessage();
@@ -101,10 +95,10 @@ class MovieController
             $movies = $this->movieModel->getMoviesByName($nombre);
 
             // Incluir la vista directamente
-            require_once './vistas/MovieView.phtml';
+            $this->movieView->showTemplate();
         } catch (InvalidArgumentException $e) {
             // Manejo de error
-            echo "Error: " . $e->getMessage(); 
+            echo "Error: " . $e->getMessage();
         }
     }
 }
