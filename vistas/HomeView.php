@@ -1,6 +1,7 @@
 <?php
 class HomeView{
-    public function renderHomeView(){
+    
+    public function renderHomeView($movies){
         require_once './templates/HomeViewTemplate.phtml';
     }
 }

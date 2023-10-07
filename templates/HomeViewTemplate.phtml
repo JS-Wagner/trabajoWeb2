@@ -1,49 +1,36 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
     <title>MovieHunter</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="./styles/HomeStyle.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="./styles/HomeStyle.css">
 </head>
 
 <body>
-    <div id="shell">
-        <div id="header">
-            <h1 id="logo"><a href="#">MovieHunter</a></h1>
-            <div class="social"> <span>Siguenos en:</span>
-                <ul>
-                    <li><a class="twitter" href="#">twitter</a></li>
-                    <li><a class="facebook" href="#">facebook</a></li>
-                    <li><a class="vimeo" href="#">vimeo</a></li>
-                    <li><a class="rss" href="#">rss</a></li>
-                </ul>
-            </div>
-            <div id="navigation">
-                <ul>
-                    <li><a class="active" href="#">HOME</a></li>
-                    <li><a href="#">NEWS</a></li>
-                    <li><a href="#">IN THEATERS</a></li>
-                    <li><a href="#">COMING SOON</a></li>
-                    <li><a href="#">CONTACTO</a></li>
-                    <li><a href="#">ADVERTISE</a></li>
-                </ul>
-            </div>
-            <div id="sub-navigation">
-                <ul>
-                    <li><a href="#">MOSTRAR TODAS</a></li>
-                    <li><a href="#">ULTIMAS PELICULAS</a></li>
-                    <li><a href="#">GENEROS</a></li>
-                    <li><a href="#">DIRECTORES</a></li>
-                </ul>
-                <div id="search">
-                    <form action="#" method="get" accept-charset="utf-8">
-                        <label for="search-field">BUSCAR</label>
-                        <input type="text" name="search field" placeholder="Enter search here" id="search-field" class="blink search-field" />
-                        <input type="submit" value="GO!" class="search-button" />
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <header id='header'>
+        <h1 id='title'>MovieHunter</h1>
+        <form id='form-search'action="buscar">
+            <input type="text" name="btn-search" placeholder="Buscar">
+            <input type="submit">
+        </form>
+    </header>
+    <?php if (isset($movies) && !empty($movies)): ?>
+        <article>
+            <?php foreach($movies as $movie): ?>
+                <section class="section-movie">
+                <?php if (isset($movie->nombre)): ?>
+                        <h1 class="title-movie">Título:</h1> <?php echo $movie->nombre; ?><br>
+                    <?php endif; ?>
+                    <?php if (isset($movie->{'fecha de lanzamiento'})): ?>
+                        <h2 class="year-movie">Año:</h2> <?php echo $movie->{'fecha de lanzamiento'}; ?><br>
+                    <?php endif; ?>
+                    <?php if (isset($movie->director)): ?>
+                        <h2>Director:</h2> <?php echo $movie->director; ?><br>
+                    <?php endif; ?>
+                </section>
+            <?php endforeach; ?>    
+        </article>
+    <?php endif ?>
 </body>
+</html>

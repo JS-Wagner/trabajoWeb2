@@ -16,6 +16,14 @@ class MovieModel
         }
     }
 
+    public function getAllMovies($sql){
+        $db = $this->connectToDatabase();
+        $query = $db->prepare($sql);
+        $query->execute();
+        $movies = $query->fetchAll(PDO::FETCH_OBJ);
+        return $movies;
+    }
+
     public function getMoviesByGenres($sql, $genres)
     {
         $db = $this->connectToDatabase();
