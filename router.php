@@ -2,6 +2,7 @@
 require_once './controladores/ErrorController.php';
 require_once './controladores/MovieController.php';
 require_once './controladores/HomeController.php';
+require_once './controladores/DirectorController.php';
 
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
@@ -51,9 +52,10 @@ switch ($params[0]) {
             // Realizar alguna acción de búsqueda sin géneros o redirigir a una página de búsqueda
         }
         break;
-    case 'actor':
+    case 'director':
         if (empty($params[1])) {
-            //showAbout();
+            $DirectorController = new DirectorController();
+            $DirectorController->showDirectors();
         } else {
             //showAbout($params[1]);
         }

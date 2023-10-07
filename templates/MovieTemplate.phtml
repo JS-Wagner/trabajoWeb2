@@ -1,50 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Resultados de la búsqueda de películas</title>
 </head>
+
 <body>
     <h1>Resultados de la búsqueda de películas</h1>
-    <?php if (isset($movies) && !empty($movies)): ?>
+    <?php if (isset($movies) && !empty($movies)) : ?>
         <ul>
-            <?php foreach ($movies as $movie): ?>
+            <?php foreach ($movies as $movie) : ?>
                 <li>
-                    <?php if (isset($movie->nombre)): ?>
+                    <?php if (isset($movie->nombre)) : ?>
                         <strong>Título:</strong> <?php echo $movie->nombre; ?><br>
                     <?php endif; ?>
-                    <?php if (isset($movie->{'fecha de lanzamiento'})): ?>
+                    <?php if (isset($movie->{'fecha de lanzamiento'})) : ?>
                         <strong>Año:</strong> <?php echo $movie->{'fecha de lanzamiento'}; ?><br>
                     <?php endif; ?>
-                    <?php if (isset($movie->director)): ?>
+                    <?php if (isset($movie->director)) : ?>
                         <strong>Director:</strong> <?php echo $movie->director; ?><br>
                     <?php endif; ?>
-                    <?php if (isset($movie->genero)): ?>
+                    <?php if (isset($movie->genero)) : ?>
                         <strong>Género:</strong> <?php echo $movie->genero; ?><br>
                     <?php endif; ?>
-                    <?php if (isset($movie->premios)): ?>
+                    <?php if (isset($movie->premios)) : ?>
                         <strong>Premios:</strong> <?php echo $movie->premios; ?><br>
                     <?php endif; ?>
-                    <?php if (isset($movie->{'duracion en min'})): ?>
+                    <?php if (isset($movie->{'duracion en min'})) : ?>
                         <strong>Duración (min):</strong> <?php echo $movie->{'duracion en min'}; ?><br>
                     <?php endif; ?>
-                    <?php if (isset($movie->{'clasificacion por edades'})): ?>
+                    <?php if (isset($movie->{'clasificacion por edades'})) : ?>
                         <strong>Clasificación por Edades:</strong> <?php echo $movie->{'clasificacion por edades'}; ?><br>
                     <?php endif; ?>
-                    <?php if (isset($movie->presupuesto)): ?>
+                    <?php if (isset($movie->presupuesto)) : ?>
                         <strong>Presupuesto:</strong> <?php echo $movie->presupuesto; ?><br>
                     <?php endif; ?>
-                    <?php if (isset($movie->{'estudio de produccion'})): ?>
+                    <?php if (isset($movie->{'estudio de produccion'})) : ?>
                         <strong>Estudio de Producción:</strong> <?php echo $movie->{'estudio de produccion'}; ?><br>
                         <br>
                     <?php endif; ?>
                 </li>
             <?php endforeach; ?>
         </ul>
-    <?php else: ?>
+    <?php else : ?>
         <p>No se encontraron películas que coincidan con la búsqueda.</p>
         <p>
             <a href="/tpo">Go back home.</a>
         </p>
     <?php endif; ?>
 </body>
+
 </html>

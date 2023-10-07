@@ -16,7 +16,8 @@ class MovieModel
         }
     }
 
-    public function getAllMovies($sql){
+    public function getAllMovies($sql)
+    {
         $db = $this->connectToDatabase();
         $query = $db->prepare($sql);
         $query->execute();
@@ -51,14 +52,15 @@ class MovieModel
         return $movies;
     }
 
-    function getMoviesByDirector($director)
+    function getMoviesByDirector($director_id)
     {
         $db = $this->connectToDatabase();
-        $query = $db->prepare('SELECT * FROM peliculas WHERE director = ?');
-        $query->execute([$director]);
+        $query = $db->prepare('SELECT * FROM peliculas WHERE director_id = ?');
+        $query->execute([$director_id]);
         $movies = $query->fetchAll(PDO::FETCH_OBJ);
         return $movies;
     }
+
 
     function getMoviesByName($nombre)
     {
