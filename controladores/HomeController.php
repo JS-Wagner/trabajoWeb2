@@ -1,15 +1,19 @@
 <?php
-    require_once './modelos/MovieModel.php';
-    require_once './vistas/HomeView.php';
-class HomeController{
-    private $movieModel;
-    private $HomeView;
+require_once './modelos/MovieModel.php';
+require_once './vistas/HomeView.php';
 
-    public function showHome(){
+class HomeController {
+    private $movieModel;
+    private $homeView;
+
+    public function __construct() {
         $this->movieModel = new MovieModel();
-        $this->HomeView = new HomeView();
+        $this->homeView = new HomeView();
+    }
+
+    public function showHome() {
         $sql = "SELECT * FROM peliculas";
         $movies = $this->movieModel->getAllMovies($sql);
-        $this->HomeView->renderHomeView($movies);
+        $this->homeView->renderHomeView($movies);
     }
 }

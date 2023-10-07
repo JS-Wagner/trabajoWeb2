@@ -42,7 +42,6 @@ class MovieModel
         return $movies;
     }
 
-
     function getMoviesByYear($year)
     {
         $db = $this->connectToDatabase();
