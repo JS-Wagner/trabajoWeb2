@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MovieHunter</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="./styles/HomeStyle.css">
+</head>
+
+<body>
+    <header id='header'>
+        <h1 id='title'>MovieHunter</h1>
+        <form id='form-search'action="buscar">
+            <input type="text" name="btn-search" placeholder="Buscar">
+            <input type="submit">
+        </form>
+    </header>
+    <?php if (isset($movies) && !empty($movies)): ?>
+        <article>
+            <?php foreach($movies as $movie): ?>
+                <section class="section-movie">
+                <?php if (isset($movie->nombre)): ?>
+                        <h1 class="title-movie">Título:</h1> <?php echo $movie->nombre; ?><br>
+                    <?php endif; ?>
+                    <?php if (isset($movie->{'fecha de lanzamiento'})): ?>
+                        <h2 class="year-movie">Año:</h2> <?php echo $movie->{'fecha de lanzamiento'}; ?><br>
+                    <?php endif; ?>
+                    <?php if (isset($movie->director)): ?>
+                        <h2>Director:</h2> <?php echo $movie->director; ?><br>
+                    <?php endif; ?>
+                </section>
+            <?php endforeach; ?>    
+        </article>
+    <?php endif ?>
+</body>
+</html>
