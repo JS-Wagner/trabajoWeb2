@@ -1,7 +1,7 @@
 <?php
 class DirectorModel{
     /*
-    Obtiene la lista de películas según su genero.
+    Obtiene la lista de directores.
     */
 
     function connectToDatabase()
@@ -10,7 +10,7 @@ class DirectorModel{
             $db = new PDO('mysql:host=localhost;dbname=tpweb2db;charset=utf8', 'root', '');
             return $db;
         } catch (PDOException $e) {
-            // Manejo de errores, (conexion fallida)
+            // (conexion fallida)
             die('Error de conexión a la base de datos: ' . $e->getMessage());
         }
     }
@@ -29,7 +29,7 @@ class DirectorModel{
     // Función para obtener todas las películas de un director específico
     public function getPeliculas($director_id) {
         if (!empty($director_id)) {
-            $movieModel = new MovieModel(); // Reemplaza 'MovieModel' con el nombre real de tu modelo de películas.
+            $movieModel = new MovieModel(); //
             $peliculas = $movieModel->getMoviesByDirector($director_id);
             return $peliculas;
         }
