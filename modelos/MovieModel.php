@@ -25,21 +25,12 @@ class MovieModel
         return $movies;
     }
 
-    public function getMoviesByGenres($sql, $genres)
+    public function getMoviesByGenres($sql)
     {
         $db = $this->connectToDatabase();
-
         $query = $db->prepare($sql);
-
-        // Asigna los valores a los marcadores de posición
-        $genreValues = array_map(function ($genre) {
-            return '%' . trim($genre) . '%';
-        }, $genres);
-
-        $query->execute($genreValues);
-
+        $query->execute();
         $movies = $query->fetchAll(PDO::FETCH_OBJ);
-
         return $movies;
     }
 

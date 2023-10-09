@@ -59,6 +59,10 @@ nav {
     margin-bottom: 20px;
 }
 
+#form-genres{
+    display: flex;
+}
+
 /* Movies section */
 .movies {
     display: flex;

@@ -33,29 +33,15 @@ switch ($params[0]) {
         $MovieController->searchMoviesByName($names);
         break;
     case 'buscar':
-        // Verificar si la acción buscar/ contiene géneros separados por /
-        if (strpos($action, 'buscar/') === 0) {
-            $genres = explode('/', substr($action, 7)); // Eliminar "buscar/" y dividir géneros
-            $MovieController = new MovieController();
-            $MovieController->showMoviesByGenres($genres);
-        } else {
-            // parsea la accion Ej: about/juan --> ['about', 'juan']
-            $params = explode('/', $action); // genera un arreglo
-            // Verificar si se proporcionaron géneros
+        $genres = array();
+        foreach ($_GET as $parametro => $valor) {
+            if ($valor == 'on') {
+                // El parámetro está seleccionado, agrégalo a la lista de géneros seleccionados
+                $genres[] .= $parametro;
+            }
         }
-        if (count($params) > 1) {
-            $genres = $params;
-            array_shift($genres); // Eliminar el primer elemento (que es 'buscar')
-            $MovieController = new MovieController();
-            $MovieController->showMoviesByGenres($genres);
-        } elseif (isset($_GET['genres'])) {
-            // Búsqueda por un solo género
-            $genres = [$_GET['genres']];
-            $MovieController = new MovieController();
-            $MovieController->showMoviesByGenres($genres);
-        } else {
-            // Realizar alguna acción de búsqueda sin géneros o redirigir a una página de búsqueda
-        }
+        $MovieController = new MovieController();
+        $MovieController->showMoviesByGenres($genres);
         break;
     case 'director':
         if (empty($params[1])) {

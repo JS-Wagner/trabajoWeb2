@@ -28,28 +28,29 @@ class MovieController
         try {
             // Verificar si se proporcionó el parámetro 'genres'
             if (!empty($genres)) {
-                // Construir dinámicamente la consulta SQL con la cláusula 'AND'
-                $sql = "SELECT * FROM peliculas WHERE ";
-                $conditions = array();
-
+                // Construir dinámicamente la consulta SQL con la cláusula 'OR'
+                $condicion = '';
+                
                 foreach ($genres as $genre) {
-                    $conditions[] = "genero LIKE ?";
+                    $condicion .= "genero = '$genre' OR ";
                 }
-
-                $sql .= implode(' AND ', $conditions);
+                $sql = "SELECT * FROM peliculas WHERE (FIND_IN_SET('$genre', genero) > 0)";
+                
+                $sql = rtrim($sql, " OR");
 
                 // Llama a la función del modelo con la consulta SQL y el array de géneros
-                $movies = $this->movieModel->getMoviesByGenres($sql, $genres);
+                $movies = $this->movieModel->getMoviesByGenres($sql);
 
                 // Incluir la vista directamentea
                 $this->movieView->showTemplate($movies); // Muestra la vista
 
             } else {
                 // Si no se proporcionaron géneros, muestra todas las películas
-                //$movies = $this->movieModel->getAllMovies();
+                $sql = "SELECT * FROM peliculas";
+                $movies = $this->movieModel->getAllMovies($sql);
 
                 // Incluir la vista directamente
-                //$this->movieView->showTemplate();
+                $this->movieView->showTemplate();
             }
         } catch (InvalidArgumentException $e) {
             // Manejo de error
@@ -90,15 +91,14 @@ class MovieController
     public function searchMoviesByName($nombre)
     {
         try {
-            $this->checkRequiredData(['nombre']);
-            $nombre = $_GET['nombre'];
+            $this->checkRequiredData(['name']);
+            $nombre = $_GET['name'];
             $movies = $this->movieModel->getMoviesByName($nombre);
 
             // Incluir la vista directamente
-            $this->movieView->showTemplate();
+            $this->movieView->showTemplate($movies);
         } catch (InvalidArgumentException $e) {
-            // Manejo de error
-            echo "Error: " . $e->getMessage();
+            $movies = $this->movieModel->getMoviesByName(null);
         }
     }
 }
