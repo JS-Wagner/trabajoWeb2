@@ -27,6 +27,11 @@ switch ($params[0]) {
         $HomeController = new HomeController();
         $HomeController->showHome();
         break;
+    case 'buscarNombre':
+        $names = explode('/', substr($action, 12));
+        $MovieController = new MovieController();
+        $MovieController->searchMoviesByName($names);
+        break;
     case 'buscar':
         // Verificar si la acción buscar/ contiene géneros separados por /
         if (strpos($action, 'buscar/') === 0) {
