@@ -29,12 +29,12 @@ class MovieController
             // Verificar si se proporcionó el parámetro 'genres'
             if (!empty($genres)) {
                 // Construir dinámicamente la consulta SQL con la cláusula 'OR'
-                $condicion = '';
+               $condicion = '';
                 
                 foreach ($genres as $genre) {
-                    $condicion .= "genero = '$genre' OR ";
+                    $condicion .= "(FIND_IN_SET('$genre', genero) > 0) OR ";
                 }
-                $sql = "SELECT * FROM peliculas WHERE (FIND_IN_SET('$genre', genero) > 0)";
+                $sql = "SELECT * FROM peliculas WHERE $condicion";
                 
                 $sql = rtrim($sql, " OR");
 
