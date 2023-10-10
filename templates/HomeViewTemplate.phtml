@@ -37,11 +37,13 @@
 
         <section class="movies">
             <?php foreach ($movies as $movie) : ?>
-                <div class="movie">
-                    <img src="movie1.jpg" alt="Foto Pelicula">
-                    <h3><?php echo $movie->{'nombre'}?></h3>
-                </div>
-            <?php  endforeach; ?>
+                <a href="movie?id=<?php echo $movie->{'pelicula_id'}; ?>">
+                    <div class="movie">
+                        <img src="movie1.jpg" alt="Foto Película">
+                        <h3><?php echo $movie->{'nombre'}?></h3>
+                    </div>
+                </a>
+            <?php endforeach; ?>
         </section>
     </main>
     <?php require_once "Footer.phtml" ?>

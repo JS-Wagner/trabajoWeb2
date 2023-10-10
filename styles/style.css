@@ -13,6 +13,10 @@ body {
     padding: 0;
 }
 
+a{
+    text-decoration: none;
+}
+
 /* Encabezado */
 header {
     background-color: #111;
@@ -36,8 +40,11 @@ nav {
     display: flex;
 }
 
-.nav-links a {
+.nav-links li {
     margin-right: 20px;
+}
+
+.nav-links a {
     text-decoration: none;
     color: #fff;
     font-weight: bold;
@@ -59,8 +66,10 @@ nav {
     margin-bottom: 20px;
 }
 
-#form-genres{
+#form-genres {
     display: flex;
+    justify-content: center;
+    flex-direction: row;
 }
 
 /* Movies section */
@@ -101,4 +110,33 @@ footer {
 
 footer p {
     font-size: 14px;
+}
+
+/* Detalles de película */
+.movie-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.movie-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.movie-info {
+    padding: 20px;
+    text-align: left;
+}
+
+.movie-info h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.movie-info p {
+    font-size: 18px;
+    margin-bottom: 10px;
 }

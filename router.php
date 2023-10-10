@@ -1,6 +1,7 @@
 <?php
 require_once './controladores/ErrorController.php';
 require_once './controladores/MovieController.php';
+require_once './controladores/SearchController.php';
 require_once './controladores/HomeController.php';
 require_once './controladores/DirectorController.php';
 
@@ -29,8 +30,8 @@ switch ($params[0]) {
         break;
     case 'buscarNombre':
         $names = explode('/', substr($action, 12));
-        $MovieController = new MovieController();
-        $MovieController->searchMoviesByName($names);
+        $SearchController = new SearchController();
+        $SearchController->searchMoviesByName($names);
         break;
     case 'buscar':
         $genres = array();
@@ -40,8 +41,20 @@ switch ($params[0]) {
                 $genres[] .= $parametro;
             }
         }
-        $MovieController = new MovieController();
-        $MovieController->showMoviesByGenres($genres);
+        $SearchController = new SearchController();
+        $SearchController->showMoviesByGenres($genres);
+        break;
+    case 'movie':
+        if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+
+            $movieId = $_GET['id'];
+            $MovieController = new MovieController();
+            $MovieController->showMovie($movieId);
+        
+        }else{
+            $ErrorController = new ErrorController();
+        $ErrorController->showError404();
+        }
         break;
     case 'director':
         if (empty($params[1])) {

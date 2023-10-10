@@ -52,7 +52,14 @@ class MovieModel
         return $movies;
     }
 
-
+    function getMovieByiD($sql)
+    {
+        $db = $this->connectToDatabase();
+        $query = $db->prepare($sql);
+        $query->execute();
+        $movie = $query->fetch(PDO::FETCH_OBJ);
+        return $movie;
+    }
     function getMoviesByName($nombre)
     {
         $db = $this->connectToDatabase();

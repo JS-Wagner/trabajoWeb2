@@ -1,6 +1,6 @@
 <?php
 class MovieSearcher{
-    function renderSearcher(){
+    function renderSearcher($movies){
         require_once './templates/searchTemplate.phtml';
     }
 }

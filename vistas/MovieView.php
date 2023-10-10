@@ -1,8 +1,7 @@
 <?php
 class MovieView
 {
-    function showTemplate($movies = null)
-    {
+    function renderMovieView($movie){
         require_once './templates/MovieTemplate.phtml';
     }
 }

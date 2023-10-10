@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Resultados de la búsqueda de películas</title>
+    <title>Detalles de Película - MovieHunter</title>
     <link rel="stylesheet" href="./styles/style.css">
 </head>
-
 <body>
-    <?php require_once "Header.phtml" ?>
+
+    <?php require_once "header.phtml" ?>
+
     <main>
-        <section class="category">
-            <h2>Categoría 1</h2>
-            <div class="movies">
-                <?php foreach($movies as $movie):?>
-                    <div class="movie">
-                        <img src="category1_movie1.jpg" alt="Película">
-                        <h3> <?php echo $movie->{'nombre'}?> </h3>
-                    </div>
-                <?php endforeach; ?>
+        <section class="movie-details">
+            <div class="movie-image">
+                <img src="movie_detail.jpg" alt="<?php echo $movie->{'nombre'} ?>">
+            </div>
+            <div class="movie-info">
+                <h2><?php echo $movie->{'nombre'} ?></h2>
+                <p><strong>Género:</strong><?php echo $movie->{'genero'} ?></p>
+                <p><strong>Director:</strong> <?php echo $movie->{'director_id'} ?></p>
+                <p><strong>Fecha de Lanzamiento:</strong> <?php echo $movie->{'fecha de lanzamiento'} ?></p>
+                <p><strong>Premios:</strong><?php echo $movie->{'premios'} ?></p>
+                <p><strong>Duración:</strong><?php echo $movie->{'duracion en min'} ?></p>
+                <p><strong>Estudio de Producción:</strong><?php echo $movie->{'estudio de produccion'} ?></p>
             </div>
         </section>
     </main>
