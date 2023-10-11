@@ -3,6 +3,10 @@ class DirectorView
 {
     function renderDirectorsView($directors)
     {
-        require_once './templates/FichaDirectorTemplate.phtml';
+        require_once './templates/AllDirectorTemplate.phtml';
+    }
+
+    function renderEachDirectorView($director){
+        require_once './templates/EachDirectorTemplate.phtml';
     }
 }

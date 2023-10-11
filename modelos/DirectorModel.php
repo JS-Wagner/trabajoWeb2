@@ -1,5 +1,6 @@
 <?php
-class DirectorModel{
+class DirectorModel
+{
     /*
     Obtiene la lista de directores.
     */
@@ -15,7 +16,8 @@ class DirectorModel{
         }
     }
 
-    public function getAllDirectors($sql){
+    public function getAllDirectors($sql)
+    {
         $db = $this->connectToDatabase();
         $query = $db->prepare($sql);
         $query->execute();
@@ -26,8 +28,19 @@ class DirectorModel{
         return $directors;
     }
 
+    public function getDirectorByID($sql)
+    {
+        $db = $this->connectToDatabase();
+        $query = $db->prepare($sql);
+        $query->execute();
+        $director = $query->fetch(PDO::FETCH_OBJ);
+        $director->peliculas = self::getPeliculas($director->director_id);
+        return $director;
+    }
+
     // Función para obtener todas las películas de un director específico
-    public function getPeliculas($director_id) {
+    public function getPeliculas($director_id)
+    {
         if (!empty($director_id)) {
             $movieModel = new MovieModel(); //
             $peliculas = $movieModel->getMoviesByDirector($director_id);

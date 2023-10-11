@@ -60,6 +60,7 @@ class MovieModel
         $movie = $query->fetch(PDO::FETCH_OBJ);
         return $movie;
     }
+    
     function getMoviesByName($nombre)
     {
         $db = $this->connectToDatabase();

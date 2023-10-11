@@ -16,5 +16,11 @@ class DirectorController {
         $directors = $this->directorModel->getAllDirectors($sql);
         $this->directorView->renderDirectorsView($directors);
     }
+
+    public function showDirectorsByID($id){
+        $sql = "SELECT * FROM director WHERE director_id = $id";
+        $director = $this->directorModel->getDirectorByID($sql);
+        $this->directorView->renderEachDirectorView($director);
+    }
 }
     

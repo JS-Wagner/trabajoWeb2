@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MovieHunter</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+    <?php require_once "header.phtml" ?>
+    <main>
+        <section class="movies">
+            <?php foreach ($directors as $director) : ?>
+                <a href="director?id=<?php echo $director->{'director_id'}; ?>">
+                    <div class="movie">
+                        <img src="director1.jpg" alt="Foto Director">
+                        <h3><?php echo $director->{'Nombre'} ?></h3>
+                        <h3><?php echo $director->{'Apellido'} ?></h3>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        </section>
+    </main>
+    <?php require_once "Footer.phtml" ?>
+</body>
+
+</html>

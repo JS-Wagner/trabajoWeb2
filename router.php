@@ -50,18 +50,23 @@ switch ($params[0]) {
             $movieId = $_GET['id'];
             $MovieController = new MovieController();
             $MovieController->showMovie($movieId);
-        
-        }else{
+        } else {
             $ErrorController = new ErrorController();
-        $ErrorController->showError404();
+            $ErrorController->showError404();
         }
         break;
+    case 'directores':
+        $DirectorController = new DirectorController();
+        $DirectorController->showDirectors();
+        break;
     case 'director':
-        if (empty($params[1])) {
+        if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+            $directorId = $_GET['id'];
             $DirectorController = new DirectorController();
-            $DirectorController->showDirectors();
+            $DirectorController->showDirectorsByID($directorId);
         } else {
-            //showAbout($params[1]);
+            $ErrorController = new ErrorController();
+            $ErrorController->showError404();
         }
         break;
     default:

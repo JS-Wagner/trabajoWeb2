@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Resumen del Director</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+    <?php require_once "Header.phtml" ?>
+    <?php if (isset($director) && !empty($director)) : ?>
+        <ul>
+            <h1>Director</h1>
+            <section class="category">
+                <div class="movies">
+                    <div class="movie">
+                        <li>
+                            <?php if (isset($director->Nombre)) : ?>
+                                <strong>Nombre:</strong> <?php echo $director->Nombre; ?><br>
+                            <?php endif; ?>
+                            <?php if (isset($director->Apellido)) : ?>
+                                <strong>Apellido:</strong> <?php echo $director->Apellido; ?><br>
+                            <?php endif; ?>
+                            <?php if (isset($director->Nacionalidad)) : ?>
+                                <strong>Nacionalidad:</strong> <?php echo $director->Nacionalidad; ?><br>
+                            <?php endif; ?>
+                            <?php if (!empty($director->peliculas)) : ?><br>
+                                <h2>Películas:</h2>
+                                <ul>
+                                    <section class="category">
+                                        <div class="movies">
+                                            <?php foreach ($director->peliculas as $pelicula) : ?>
+                                                <a href="movie?id=<?php echo $pelicula->{'pelicula_id'}; ?>">
+                                                <div class="movie">
+                                                    <img src="category1_movie1.jpg" alt="Película">
+                                                    <h3> <?php echo $pelicula->{'nombre'} ?> </h3>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </section>
+                                </ul>
+                                <br>
+                            <?php else : ?>
+                                <p>No se encontraron películas para este director.</p>
+                            <?php endif; ?>
+                        </li>
+                    </div>
+                </div>
+            </section>
+        </ul>
+    <?php else : ?>
+        <p>No se encontraron directores.</p>
+    <?php endif; ?>
+    <?php require_once "Footer.phtml" ?>
+</body>
+
+</html>
