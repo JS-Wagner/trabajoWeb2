@@ -4,6 +4,7 @@ require_once './controladores/MovieController.php';
 require_once './controladores/SearchController.php';
 require_once './controladores/HomeController.php';
 require_once './controladores/DirectorController.php';
+require_once './controladores/AuthController.php';
 
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
@@ -18,6 +19,13 @@ if (!empty($_GET['action'])) {
 **      /about/:director    =>     showAbout(:dev); //FALTA IMPLEMENTAR
 **      /buscar/:genero     =>     showMoviesByGenres(:genero);
 **      /??????             =>     showError404();
+**      /login ->           =>     authContoller->showLogin();
+**      /logout ->          =>     authContoller->logout();
+**      /auth               =>     authContoller->auth();   // toma los datos del post y autentica al usuario
+**      /agregar            =>     DirectorController->addDirector();
+**      /eliminar/:ID       =>     DirectorController->removerDirector($id); 
+
+
 */
 
 // parsea la accion Ej: about/juan --> ['about', 'juan']
@@ -56,8 +64,8 @@ switch ($params[0]) {
         }
         break;
     case 'directores':
-        $DirectorController = new DirectorController();
-        $DirectorController->showDirectors();
+            $DirectorController = new DirectorController();
+            $DirectorController->showDirectors();
         break;
     case 'director':
         if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -68,6 +76,26 @@ switch ($params[0]) {
             $ErrorController = new ErrorController();
             $ErrorController->showError404();
         }
+        break;
+    case 'login':
+        $controller = new AuthController();
+        $controller->showLogin();
+        break;
+    case 'auth':
+        $controller = new AuthController();
+        $controller->auth();
+        break;
+    case 'logout':
+        $controller = new AuthController();
+        $controller->logout();
+        break;
+    case 'agregar':
+        $controller = new DirectorController();
+        $controller->addDirector();
+        break;
+    case 'eliminar':
+        $controller = new DirectorController();
+        $controller->removerDirector($params[1]);
         break;
     default:
         // Cargar la vista de error 404

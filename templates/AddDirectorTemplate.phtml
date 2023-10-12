@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MovieHunter</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+    <?php require_once 'Header.phtml'; ?>
+    <!-- Form de alta de directores -->
+    <form action="agregar" method="POST">
+        <div>
+            <div>
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input required name="nombre" type="text" class="form-control">
+                </div>
+            </div>
+
+            <div>
+                <div class="form-group">
+                    <label>Apellido</label>
+                    <input required name="apellido" type="text" class="form-control">
+                </div>
+            </div>
+
+            <div>
+                <div class="form-group">
+                    <label>Nacionalidad</label>
+                    <input required name="nacionalidad" type="text" class="form-control">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+    </form>
+    <?php require_once 'Footer.phtml'; ?>
+</body>
+
+</html>

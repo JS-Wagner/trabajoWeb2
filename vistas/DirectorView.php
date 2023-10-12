@@ -9,4 +9,9 @@ class DirectorView
     function renderEachDirectorView($director){
         require_once './templates/EachDirectorTemplate.phtml';
     }
+
+    public function showError($error) {
+        require './templates/ErrorTemplate.phtml';
+    }
+
 }

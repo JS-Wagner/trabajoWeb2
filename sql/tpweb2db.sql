@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2023 at 12:29 AM
+-- Generation Time: Oct 12, 2023 at 04:42 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -45,7 +45,8 @@ INSERT INTO `director` (`director_id`, `Nombre`, `Apellido`, `Nacionalidad`) VAL
 (4, 'Quentin', 'Tarantino', 'Estados Unidos'),
 (5, 'Tim', 'Burton', 'Estados Unidos'),
 (6, 'James', 'Cameron', 'Canada'),
-(7, 'Cristopher', 'Nolan', 'Reino Unido');
+(7, 'Cristopher', 'Nolan', 'Reino Unido'),
+(8, 'Peter', 'Jackson', 'Nueva Zelanda');
 
 -- --------------------------------------------------------
 
@@ -102,17 +103,17 @@ INSERT INTO `peliculas` (`pelicula_id`, `nombre`, `genero`, `fecha de lanzamient
 --
 
 CREATE TABLE `usuario` (
-  `usuario` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `username` varchar(75) NOT NULL,
-  `password` varchar(20) NOT NULL
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`usuario`, `username`, `password`) VALUES
-(1, 'webadmin', 'admin');
+INSERT INTO `usuario` (`user_id`, `username`, `password`) VALUES
+(3, 'webadmin', '$2y$10$Kf7o12C0.hZcEchpJ1NxEuxcOL5ptMS/JBXVrCyIa7G/.YMpgIOye');
 
 --
 -- Indexes for dumped tables
@@ -135,7 +136,7 @@ ALTER TABLE `peliculas`
 -- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`usuario`);
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -145,7 +146,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `director`
 --
 ALTER TABLE `director`
-  MODIFY `director_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `director_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `peliculas`
@@ -157,7 +158,7 @@ ALTER TABLE `peliculas`
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

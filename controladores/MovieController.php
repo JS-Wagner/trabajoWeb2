@@ -1,6 +1,7 @@
 <?php
 require_once './modelos/MovieModel.php';
 require_once './vistas/MovieView.php';
+require_once './helpers/AuthHelper.php';
 
 class MovieController{
     private $movieModel;
@@ -19,6 +20,9 @@ class MovieController{
         $this->movieView->renderMovieView($movie);
     }
 
+    ///////////////AÑADIR ALTA BAJA MODIFICACION ACÁ/////////////
+
+    
 }
 
 ?>

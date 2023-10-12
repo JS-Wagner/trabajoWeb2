@@ -6,6 +6,11 @@
         <div class="nav-links">
             <a href="directores">Directores</a>
             <a href="home">Inicio</a>
+            <?php if (AuthHelper::isAuthenticated()) : ?>
+                <a class="nav-link" aria-current="page" href="logout">Logout (<?= $_SESSION['USERNAME'] ?>)</a>
+            <?php else : ?>
+                <a class="nav-link" aria-current="page" href="login">Login</a>
+            <?php endif ?>
             <form action="buscarNombre" method="get">
                 <input type="search" id="busqueda" name="name" required>
                 <input type="submit" value="Buscar">
