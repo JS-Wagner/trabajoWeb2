@@ -10,13 +10,15 @@
     <?php require_once "Header.phtml" ?>
     <main>
         <section class="category">
-            <h2>Categoría 1</h2>
+            <h2><?php echo $titulo?></h2>
             <div class="movies">
                 <?php foreach($movies as $movie):?>
-                    <div class="movie">
-                        <img src="category1_movie1.jpg" alt="Película">
-                        <h3> <?php echo $movie->{'nombre'}?> </h3>
-                    </div>
+                    <a clas="a-movies" href="movie?id=<?php echo $movie->{'pelicula_id'}; ?>">
+                        <div class="movie">
+                            <img src="category1_movie1.jpg" alt="Película">
+                            <h3> <?php echo $movie->{'nombre'}?> </h3>
+                        </div>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </section>

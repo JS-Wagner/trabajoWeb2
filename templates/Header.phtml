@@ -4,14 +4,14 @@
             <a href="home"><h1>MovieHunter</h1></a>
         </div>
         <div class="nav-links">
-            <a href="directores">Directores</a>
-            <a href="home">Inicio</a>
+            <a class="btn-nav" href="directores">Directores</a>
+            <a class="btn-nav" href="home">Inicio</a>
             <?php if (AuthHelper::isAuthenticated()) : ?>
-                <a class="nav-link" aria-current="page" href="logout">Logout (<?= $_SESSION['USERNAME'] ?>)</a>
+                <a class="nav-link brn-nav" aria-current="page" href="logout">Logout (<?= $_SESSION['USERNAME'] ?>)</a>
             <?php else : ?>
-                <a class="nav-link" aria-current="page" href="login">Login</a>
+                <a class="nav-link brn-nav" aria-current="page" href="login">Login</a>
             <?php endif ?>
-            <form action="buscarNombre" method="get">
+            <form class="btn-nav" action="buscarNombre" method="get">
                 <input type="search" id="busqueda" name="name" required>
                 <input type="submit" value="Buscar">
             </form>

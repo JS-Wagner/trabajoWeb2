@@ -9,6 +9,7 @@
 <body>
     <?php require_once "Header.phtml" ?>
     <main>
+        <h1>Lista de directores: </h1>
         <section class="movies">
             <?php foreach ($directors as $director) : ?>
                 <a href="director?id=<?php echo $director->{'director_id'}; ?>">

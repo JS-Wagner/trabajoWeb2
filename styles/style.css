@@ -30,6 +30,10 @@ nav {
     padding: 0 20px;
 }
 
+.btn-nav{
+    margin: 5px;
+}
+
 .logo h1 {
     font-size: 24px;
     color: #fff;
@@ -89,6 +93,10 @@ nav {
     max-width: 100%;
     height: auto;
     border-radius: 5px;
+}
+
+.a-movies{
+    text-decoration: none;
 }
 
 /* Categorías */

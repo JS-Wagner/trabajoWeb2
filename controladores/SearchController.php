@@ -30,9 +30,10 @@ class SearchController
             if (!empty($genres)) {
                 // Construir dinámicamente la consulta SQL con la cláusula 'OR'
                 $condicion = '';
-                
+                $titulo = "Generos: ";
                 foreach ($genres as $genre) {
                     $condicion .= "(FIND_IN_SET('$genre', genero) > 0) OR ";
+                    $titulo .= $genre . ", ";
                 }
                 $sql = "SELECT * FROM peliculas WHERE $condicion";
                 
@@ -42,15 +43,15 @@ class SearchController
                 $movies = $this->movieModel->getMoviesByGenres($sql);
 
                 // Incluir la vista directamentea
-                $this->searchView->renderSearcher($movies); // Muestra la vista
+                $this->searchView->renderSearcher($movies, $titulo); // Muestra la vista
 
             } else {
                 // Si no se proporcionaron géneros, muestra todas las películas
                 $sql = "SELECT * FROM peliculas";
                 $movies = $this->movieModel->getAllMovies($sql);
-
+                $titulo = "No se especifico ningun genero";
                 // Incluir la vista directamente
-                $this->searchView->renderSearcher($movies);
+                $this->searchView->renderSearcher($movies, $titulo);
             }
         } catch (InvalidArgumentException $e) {
             // Manejo de error
@@ -64,9 +65,9 @@ class SearchController
             $this->checkRequiredData(['year']);
             $year = $_GET['year'];
             $movies = $this->movieModel->getMoviesByYear($year);
-
+            $titulo = "Año de la pelicula: " . $year;
             // Incluir la vista directamente
-            $this->searchView->renderSearcher($movies);
+            $this->searchView->renderSearcher($movies, $titulo);
         } catch (InvalidArgumentException $e) {
             // Manejo de error
             echo "Error: " . $e->getMessage();
@@ -79,9 +80,9 @@ class SearchController
             $this->checkRequiredData(['director']);
             $director = $_GET['director'];
             $movies = $this->movieModel->getMoviesByDirector($director);
-
+            $titulo = "Director: " . $director;
             // Incluir la vista directamente
-            $this->searchView->renderSearcher($movies);;
+            $this->searchView->renderSearcher($movies, $titulo);;
         } catch (InvalidArgumentException $e) {
             // Manejo de error
             echo "Error: " . $e->getMessage();
@@ -94,9 +95,9 @@ class SearchController
             $this->checkRequiredData(['name']);
             $nombre = $_GET['name'];
             $movies = $this->movieModel->getMoviesByName($nombre);
-
+            $titulo = "Busqueda: " . $nombre;
             // Incluir la vista directamente
-            $this->searchView->renderSearcher($movies);
+            $this->searchView->renderSearcher($movies, $titulo);
         } catch (InvalidArgumentException $e) {
             $movies = $this->movieModel->getMoviesByName(null);
         }
