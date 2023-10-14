@@ -18,14 +18,16 @@ if (!empty($_GET['action'])) {
 **      /home               =>     showHome(); //FALTA IMPLEMENTAR 
 **      /about/:director    =>     showAbout(:dev); //FALTA IMPLEMENTAR
 **      /buscar/:genero     =>     showMoviesByGenres(:genero);
-**      /??????             =>     showError404();
 **      /login ->           =>     authContoller->showLogin();
 **      /logout ->          =>     authContoller->logout();
 **      /auth               =>     authContoller->auth();   // toma los datos del post y autentica al usuario
-**      /agregar            =>     DirectorController->addDirector();
-**      /eliminar/:ID       =>     DirectorController->removerDirector($id); 
+**      /agregardirector    =>     DirectorController->addDirector();
+**      /eliminardirector   =>     DirectorController->removerDirector(); 
+**      /modificardirector  =>     DirecotrController->modificarDirector();
 
 
+
+**      /??????             =>     showError404();
 */
 
 // parsea la accion Ej: about/juan --> ['about', 'juan']
@@ -89,13 +91,20 @@ switch ($params[0]) {
         $controller = new AuthController();
         $controller->logout();
         break;
-    case 'agregar':
+    case 'agregardirector':
         $controller = new DirectorController();
         $controller->addDirector();
+        $controller->showDirectors();
         break;
-    case 'eliminar':
+    case 'eliminardirector':
         $controller = new DirectorController();
-        $controller->removerDirector($params[1]);
+        $controller->removerDirector();
+        $controller->showDirectors();
+        break;
+    case 'modificardirector':
+        $controller = new DirectorController();
+        $controller->modificarDirector();
+        $controller->showDirectors();
         break;
     default:
         // Cargar la vista de error 404

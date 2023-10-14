@@ -49,7 +49,8 @@ class DirectorModel
         return array(); // Si no se proporciona un director_id válido, retorna un arreglo vacío.
     }
 
-    public function insertarDirector($nombre, $apellido, $nacionalidad){
+    public function insertarDirector($nombre, $apellido, $nacionalidad)
+    {
         $db = $this->connectToDatabase();
         $query = $db->prepare('INSERT INTO director (Nombre, Apellido, Nacionalidad) VALUES(?,?,?)');
         $query->execute([$nombre, $apellido, $nacionalidad]);
@@ -58,16 +59,16 @@ class DirectorModel
     }
 
     public function borrarDirector($id)
-    {   
+    {
         $db = $this->connectToDatabase();
         $query = $db->prepare('DELETE FROM director WHERE director_id = ?');
         $query->execute([$id]);
     }
 
-  //  function modificarDirector($id) {    
-  //      $db = $this->connectToDatabase();
-  //      $query = $db->prepare('UPDATE director SET Nombre = 1 WHERE id = ?'); ////NO IMPLEMENTADO
-  //      $query->execute([$id]);
-  //  }
-    
+    function modificarDirector($id, $nombre, $apellido, $nacionalidad)
+    {
+        $db = $this->connectToDatabase();
+        $query = $db->prepare('UPDATE director SET Nombre = ?, Apellido = ?, Nacionalidad = ? WHERE director_id = ?');
+        $query->execute([$nombre, $apellido, $nacionalidad, $id]);
+    }
 }

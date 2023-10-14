@@ -45,21 +45,45 @@ class DirectorController
 
         $id = $this->directorModel->insertarDirector($nombre, $apellido, $nacionalidad);
         if ($id) {
-            header('Location: ' . BASE_URL);
+            header('Location: ' . BASE_URL . '/directores');
         } else {
             $this->directorView->showError("Error al insertar la tarea");
         }
     }
 
-    function removerDirector($id)
+    function removerDirector()
     {
+        // verifico logueado
+        AuthHelper::verify();
+        // obtengo los datos del usuario
+        $id = $_POST['id'];
+
+        // validaciones
+        if (empty($id)) {
+            $this->directorView->showError("Debe completar todos los campos");
+            return;
+        }
+
         $this->directorModel->borrarDirector($id);
-        header('Location: ' . BASE_URL);
+        header('Location: ' . BASE_URL . '/directores');
     }
 
-    //function modificarDirector($id)
-    //{
-    //    $this->directorModel->modificarDirector($id); //NO IMPLEMENTADO
-    //    header('Location: ' . BASE_URL);
-    //}
+    function modificarDirector()
+    {
+        // verifico logueado
+        AuthHelper::verify();
+        // obtengo los datos del usuario
+        $id = $_POST['id'];
+        $nombre = $_POST['nombre'];
+        $apellido = $_POST['apellido'];
+        $nacionalidad = $_POST['nacionalidad'];
+
+        // validaciones
+        if (empty($id) || empty($nombre) || empty($apellido) || empty($nacionalidad)) {
+            $this->directorView->showError("Debe completar todos los campos");
+            return;
+        }
+        $this->directorModel->modificarDirector($id, $nombre, $apellido, $nacionalidad);
+        header('Location: ' . BASE_URL . '/directores');
+    }
 }
