@@ -9,6 +9,6 @@ Vamos a hacer una página que detalle las características filmográficas de las
 
 ## Diagrama Entidad Relación
 
-![Diagrama Entidad Relacion](https://raw.githubusercontent.com/JS-Wagner/trabajoWeb2/main/DER%20jpg.jpg)
+![Diagrama Entidad Relacion](https://raw.githubusercontent.com/JS-Wagner/trabajoWeb2/main/DER2.jpg)
 
 
