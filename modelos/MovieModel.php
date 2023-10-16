@@ -1,4 +1,5 @@
 <?php
+require_once './config.php';
 class MovieModel
 {
     /*
@@ -8,7 +9,7 @@ class MovieModel
     function connectToDatabase()
     {
         try {
-            $db = new PDO('mysql:host=localhost;dbname=tpweb2db;charset=utf8', 'root', '');
+            $db = new PDO('mysql:host=' . MYSQL_HOST . ';dbname=' . MYSQL_DB . ';charset=utf8', MYSQL_USER, MYSQL_PASS);
             return $db;
         } catch (PDOException $e) {
             // Manejo de errores, (conexion fallida)
@@ -60,7 +61,7 @@ class MovieModel
         $movie = $query->fetch(PDO::FETCH_OBJ);
         return $movie;
     }
-    
+
     function getMoviesByName($nombre)
     {
         $db = $this->connectToDatabase();

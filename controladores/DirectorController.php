@@ -52,21 +52,29 @@ class DirectorController
     }
 
     function removerDirector()
-    {
+{
+    // Verifica si se ha enviado el form para eliminar
+    if (isset($_POST['eliminar']) && isset($_POST['id'])) {
         // verifico logueado
         AuthHelper::verify();
-        // obtengo los datos del usuario
-        $id = $_POST['id'];
-
+        // obtengo la ID del director a eliminar
+        $directorId = $_POST['id'];
+        
         // validaciones
-        if (empty($id)) {
-            $this->directorView->showError("Debe completar todos los campos");
+        if (empty($directorId)) {
+            $this->directorView->showError("ID de director no válido.");
             return;
         }
-
-        $this->directorModel->borrarDirector($id);
+        
+        //ejecuto la operacion sql para borrarlo
+        $this->directorModel->borrarDirector($directorId);
         header('Location: ' . BASE_URL . '/directores');
+    } else {
+        //si no lo encuentro largo error
+        $ErrorController = new ErrorController();
+        $ErrorController->showError404();
     }
+}
 
     function modificarDirector()
     {
