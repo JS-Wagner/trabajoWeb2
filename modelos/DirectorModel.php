@@ -28,22 +28,29 @@ class DirectorModel
         }
         return $directors;
     }
-    public function getDirectorNameById($id){
+    public function getDirectorNameById($id)
+    {
         $db = $this->connectToDatabase();
         $query = $db->prepare("SELECT Nombre, Apellido FROM director WHERE director_id = ?");
         $query->execute([$id]);
         $result = $query->fetch(PDO::FETCH_OBJ);
         return $result;
     }
-    public function getDirectorByID($sql)
+
+    public function getDirectorByID($id)
     {
         $db = $this->connectToDatabase();
-        $query = $db->prepare($sql);
-        $query->execute();
+        $query = $db->prepare("SELECT * FROM director WHERE director_id = ?");
+        $query->execute([$id]);
         $director = $query->fetch(PDO::FETCH_OBJ);
-        $director->peliculas = self::getPeliculas($director->director_id);
+
+        if ($director) {
+            $director->peliculas = self::getPeliculas($director->director_id);
+        }
+
         return $director;
     }
+
 
     // Función para obtener todas las películas de un director específico
     public function getPeliculas($director_id)

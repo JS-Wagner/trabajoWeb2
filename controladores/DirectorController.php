@@ -23,10 +23,10 @@ class DirectorController
 
     public function showDirectorsByID($id)
     {
-        $sql = "SELECT * FROM director WHERE director_id = $id";
-        $director = $this->directorModel->getDirectorByID($sql);
+        $director = $this->directorModel->getDirectorByID($id);
         $this->directorView->renderEachDirectorView($director);
     }
+
 
     public function addDirector()
     {
@@ -52,29 +52,29 @@ class DirectorController
     }
 
     function removerDirector()
-{
-    // Verifica si se ha enviado el form para eliminar
-    if (isset($_POST['eliminar']) && isset($_POST['id'])) {
-        // verifico logueado
-        AuthHelper::verify();
-        // obtengo la ID del director a eliminar
-        $directorId = $_POST['id'];
-        
-        // validaciones
-        if (empty($directorId)) {
-            $this->directorView->showError("ID de director no válido.");
-            return;
+    {
+        // Verifica si se ha enviado el form para eliminar
+        if (isset($_POST['eliminar']) && isset($_POST['id'])) {
+            // verifico logueado
+            AuthHelper::verify();
+            // obtengo la ID del director a eliminar
+            $directorId = $_POST['id'];
+
+            // validaciones
+            if (empty($directorId)) {
+                $this->directorView->showError("ID de director no válido.");
+                return;
+            }
+
+            //ejecuto la operacion sql para borrarlo
+            $this->directorModel->borrarDirector($directorId);
+            header('Location: ' . BASE_URL . 'directores');
+        } else {
+            //si no lo encuentro largo error
+            $ErrorController = new ErrorController();
+            $ErrorController->showError404();
         }
-        
-        //ejecuto la operacion sql para borrarlo
-        $this->directorModel->borrarDirector($directorId);
-        header('Location: ' . BASE_URL . 'directores');
-    } else {
-        //si no lo encuentro largo error
-        $ErrorController = new ErrorController();
-        $ErrorController->showError404();
     }
-}
 
     function modificarDirector()
     {
@@ -93,5 +93,21 @@ class DirectorController
         }
         $this->directorModel->modificarDirector($id, $nombre, $apellido, $nacionalidad);
         header('Location: ' . BASE_URL . 'directores');
+    }
+
+    public function showEditDirectorForm($directorId)
+    {
+        // Verifica si el usuario está autenticado
+        AuthHelper::verify();
+
+        // Obtén los datos del director a editar
+        $director = $this->directorModel->getDirectorByID($directorId);
+
+        if ($director) {
+            // Carga la vista del formulario de edición con los datos del director
+            $this->directorView->renderEditDirectorForm($director);
+        } else {
+            $this->directorView->showError("Director no encontrado.");
+        }
     }
 }

@@ -3,6 +3,7 @@
 <head>
     <title>MovieHunter</title>
     <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <?php require_once "header.phtml" ?>
@@ -13,64 +14,64 @@
             <div>
                 <form id="form-genres" action="buscar" method="get">
                     <div>
-                        <input type="checkbox" name="Terror"> 
-                        <h4>Terror</h4>
+                        <input type="checkbox" id="checkbox1" name="Terror"> 
+                        <label for="checkbox1">Terror</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="Thriller"> 
-                        <h4>Thriller</h4>
+                        <input type="checkbox" id="checkbox2" name="Thriller">
+                        <label for="checkbox2">Thriller</label> 
                     </div>
                     <div>
-                        <input type="checkbox" name="Crimen"> 
-                        <h4>Crimen</h4>
+                        <input type="checkbox" id="checkbox3" name="Crimen"> 
+                        <label for="checkbox3">Crimen</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="Drama"> 
-                        <h4>Drama</h4>
+                        <input type="checkbox" id="checkbox4" name="Drama"> 
+                        <label for="checkbox4">Drama</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="Comedia"> 
-                        <h4>Comedia</h4>
+                        <input type="checkbox" id="checkbox5" name="Comedia"> 
+                        <label for="checkbox5">Comedia</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="Biografico"> 
-                        <h4>Biografico</h4>
+                        <input type="checkbox" id="checkbox6" name="Biografico"> 
+                        <label for="checkbox6">Biografico</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="Belico"> 
-                        <h4>Belico</h4>
+                        <input type="checkbox" id="checkbox7" name="Belico"> 
+                        <label for="checkbox7">Belico</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="Accion"> 
-                        <h4>Accion</h4>
+                        <input type="checkbox" id="checkbox8" name="Accion"> 
+                        <label for="checkbox8">Accion</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="Suspenso"> 
-                        <h4>Suspenso</h4>
+                        <input type="checkbox" id="checkbox9" name="Suspenso"> 
+                        <label for="checkbox9">Suspenso</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="Fantasia"> 
-                        <h4>Fantasia</h4>
+                        <input type="checkbox" id="checkbox10" name="Fantasia"> 
+                        <label for="checkbox10">Fantasia</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="Aventura"> 
-                        <h4>Aventura</h4>
+                        <input type="checkbox" id="checkbox11" name="Aventura"> 
+                        <label for="checkbox11">Aventura</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="Ciencia Ficcion"> 
-                        <h4>Ciencia Ficcion</h4>
+                        <input type="checkbox" id="checkbox12" name="Ciencia Ficcion"> 
+                        <label for="checkbox12">Ciencia Ficcion</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="Animacion"> 
-                        <h4>Animacion</h4>
+                        <input type="checkbox" id="checkbox13" name="Animacion"> 
+                        <label for="checkbox13">Animacion</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="Romance"> 
-                        <h4>Romance</h4>
+                        <input type="checkbox" id="checkbox14" name="Romance"> 
+                        <label for="checkbox14">Romance</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="Catastrofe"> 
-                        <h4>Catastrofe</h4>
+                        <input type="checkbox" id="checkbox15" name="Catastrofe"> 
+                        <label for="checkbox15">Catastrofe</label>
                     </div>
                     <div>
                         <input type="submit" value="Filtrar">
@@ -79,11 +80,11 @@
             </div>
         </section>
 
-        <section>
+        <section class="category">
             <form action="eliminarPelicula" method="post">
                 <div class="movies">
                     <?php foreach ($movies as $movie) : ?>
-                        <a href="movie?id=<?php echo $movie->{'pelicula_id'}; ?>">
+                        <a class="a-movies" href="movie?id=<?php echo $movie->{'pelicula_id'}; ?>">
                             <div class="movie">
                                 <h3><?php echo $movie->{'nombre'}?></h3>
                                 <?php if (AuthHelper::isAuthenticated()) : ?>

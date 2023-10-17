@@ -10,17 +10,25 @@
     <?php require_once "Header.phtml" ?>
     <main>
         <h1>Lista de directores: </h1>
-        <section>
+        <section class="category">
             <form action="eliminardirector" method="POST">
                 <div class="movies">
                     <?php foreach ($directors as $director) : ?>
-                        <a href="director?id=<?php echo $director->{'director_id'}; ?>">
+                        <a class="a-movies" href="director?id=<?php echo $director->{'director_id'}; ?>">
                             <div class="movie">
                                 <h3><?php echo $director->{'Nombre'} ?></h3>
                                 <h3><?php echo $director->{'Apellido'} ?></h3>
                                 <?php if (AuthHelper::isAuthenticated()) : ?>
-                                    <input type="hidden" name="id" value="<?php echo $director->director_id; ?>">
-                                    <button type="submit" name="eliminar">Eliminar</button>
+                                    <div class="director-actions">
+                                    <form action="eliminardirector" method="POST" class="director-action-form">
+                                        <input type="hidden" name="id" value="<?php echo $director->director_id; ?>">
+                                        <button type="submit" name="eliminar">Eliminar</button>
+                                    </form>
+                                    <form action="editardirector" method="POST" class="director-action-form">
+                                        <input type="hidden" name="id" value="<?php echo $director->director_id; ?>">
+                                        <button type="submit" name="editar">Editar</button>
+                                    </form>
+                                </div>
                                 <?php endif; ?>
                             </div>
                         </a>

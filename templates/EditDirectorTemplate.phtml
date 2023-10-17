@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MovieHunter</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+    <?php require_once 'Header.phtml'; ?>
+    <!-- Form de alta de directores -->
+    <h4>Modificar Director</h4>
+    <form class="formpelis" action="modificardirector" method="POST">
+        <div>
+            <div>
+                <div class="form-group">
+                    <!-- Agrega un campo hidden para el "id" prellenado -->
+                    <input type="hidden" name="id" value="<?php echo $director->director_id; ?>">
+                </div>
+            </div>
+            <div>
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input required name="nombre" type="text" class="form-control" value="<?php echo $director->Nombre; ?>">
+                </div>
+            </div>
+            <div>
+                <div class="form-group">
+                    <label>Apellido</label>
+                    <input required name="apellido" type="text" class="form-control" value="<?php echo $director->Apellido; ?>">
+                </div>
+            </div>
+            <div>
+                <div class="form-group">
+                    <label>Nacionalidad</label>
+                    <input required name="nacionalidad" type="text" class="form-control" value="<?php echo $director->Nacionalidad; ?>">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Editar director</button>
+        </div>
+    </form>
+    <?php require_once 'Footer.phtml'; ?>
+</body>
+
+</html>

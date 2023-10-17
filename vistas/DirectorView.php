@@ -14,4 +14,9 @@ class DirectorView
         require './templates/ErrorTemplate.phtml';
     }
 
+    function renderEditDirectorForm($director)
+    {
+        require_once './templates/EditDirectorTemplate.phtml';
+    }
+
 }

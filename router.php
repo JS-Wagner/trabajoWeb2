@@ -15,19 +15,29 @@ if (!empty($_GET['action'])) {
 }
 
 /*
-**      /home               =>     showHome(); //FALTA IMPLEMENTAR 
-**      /about/:director    =>     showAbout(:dev); //FALTA IMPLEMENTAR
-**      /buscar/:genero     =>     showMoviesByGenres(:genero);
-**      /login ->           =>     authContoller->showLogin();
-**      /logout ->          =>     authContoller->logout();
-**      /auth               =>     authContoller->auth();   // toma los datos del post y autentica al usuario
-**      /agregardirector    =>     DirectorController->addDirector();
-**      /eliminardirector   =>     DirectorController->removerDirector(); 
-**      /modificardirector  =>     DirecotrController->modificarDirector();
+BASE
+**      /home               =>     showHome();                                  //ruta por defecto, muestra la home.
 
+PELICULAS
+**      /buscarNombre       =>     searchMoviesByName();                        //muestra las peliculas que matchean el substring dado.
+**      /buscar             =>     showMoviesByGenres;                          //muestra las peliculas por generos seleccionados.
+terminalas compañero 👍
 
+AUTH
+**      /login ->           =>     authContoller->showLogin();                  //muestra el formulario de autenticación.
+**      /logout ->          =>     authContoller->logout();                     //elimina la session.
+**      /auth               =>     authContoller->auth();                       //toma los datos del post y autentica al usuario.
 
-**      /??????             =>     showError404();
+DIRECTORES
+**      /directores         =>     DirectorController->showDirectors();         //muestra todos los directores en la BD.
+**      /director           =>     DirectorController->showDirectorsById();     //muestra el detalle del director seleccionado(recibe su id).
+**      /agregardirector    =>     DirectorController->addDirector();           //agrega el director con los parametros del formulario.
+**      /eliminardirector   =>     DirectorController->removerDirector();       //elimina el director.
+**      /editardirector     =>     DirectorController->showEditDirectorForm();  //muestra el formulario para editar directores.
+**      /modificardirector  =>     DirectorController->modificarDirector();     //modifica el director con los datos del formulario.
+
+ERRORES
+**      /??????             =>     showError404();                              //muestra la vista de error
 */
 
 // parsea la accion Ej: about/juan --> ['about', 'juan']
@@ -66,8 +76,8 @@ switch ($params[0]) {
         }
         break;
     case 'directores':
-            $DirectorController = new DirectorController();
-            $DirectorController->showDirectors();
+        $DirectorController = new DirectorController();
+        $DirectorController->showDirectors();
         break;
     case 'director':
         if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -106,6 +116,16 @@ switch ($params[0]) {
         $controller->modificarDirector();
         $controller->showDirectors();
         break;
+    case 'editardirector':
+        $directorId = isset($_POST['id']) ? $_POST['id'] : null;
+        if ($directorId) {
+            $DirectorController = new DirectorController();
+            $DirectorController->showEditDirectorForm($directorId);
+        } else {
+            $ErrorController = new ErrorController();
+            $ErrorController->showError404();
+        }
+        break;
     case 'agregarPelicula':
         $controller = new HomeController();
         $controller->addMovie();
@@ -118,10 +138,10 @@ switch ($params[0]) {
         break;
     case 'modificarPelicula':
         $controller = new HomeController();
-        $controller-> modificarPelicula();
-        $controller-> showHome();
+        $controller->modificarPelicula();
+        $controller->showHome();
         break;
-        default:
+    default:
         // Cargar la vista de error 404
         $ErrorController = new ErrorController();
         $ErrorController->showError404();
