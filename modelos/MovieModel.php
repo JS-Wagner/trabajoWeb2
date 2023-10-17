@@ -87,10 +87,10 @@ class MovieModel
         $query->execute([$id]);
     }
 
-    function modifyPelicula($id, $nombre, $genero, $fecha, $premios, $duracion, $clasificacion, $presupuesto, $estudio, $director)
+    function editarPelicula($id, $nombre, $genero, $fecha, $premios, $duracion, $clasificacion, $presupuesto, $estudio, $director)
     {
         $db = $this->connectToDatabase();
-        $query = $db->prepare('UPDATE `peliculas` SET `nombre`= ?,`genero`= ?,`fecha de lanzamiento` = ?,`premios`= ?,`duracion en min`= ?,`clasificacion por edades`= ?,`presupuesto`= ?,`estudio de produccion`= ?,`director_id`= ? WHERE pelicula_id = ?');
+        $query = $db->prepare('UPDATE peliculas SET nombre = ?, genero = ?,`fecha de lanzamiento` = ?,`premios`= ?,`duracion en min`= ?,`clasificacion por edades`= ?, presupuesto = ?,`estudio de produccion`= ?,director_id = ? WHERE pelicula_id = ?');
         $query->execute([$nombre, $genero, $fecha, $premios, $duracion, $clasificacion, $presupuesto, $estudio, $director, $id]);
     }
 }

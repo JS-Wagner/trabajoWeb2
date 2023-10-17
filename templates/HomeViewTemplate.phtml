@@ -81,7 +81,6 @@
         </section>
 
         <section class="category">
-            <form action="eliminarPelicula" method="post">
                 <div class="movies">
                     <?php foreach ($movies as $movie) : ?>
                         <a class="a-movies" href="movie?id=<?php echo $movie->{'pelicula_id'}; ?>">
@@ -89,13 +88,18 @@
                                 <h3><?php echo $movie->{'nombre'}?></h3>
                                 <?php if (AuthHelper::isAuthenticated()) : ?>
                                     <input type="hidden" name="id" value="<?php echo $movie->pelicula_id; ?>">
-                                    <button type="submit" name="eliminar">Eliminar</button>
+                                    <form action="eliminarPelicula" method="POST">
+                                        <input type="hidden" name="id" value="<?php echo $movie->pelicula_id; ?>">
+                                        <button type="submit" name="eliminar">Eliminar</button>
+                                    </form>
+                                    <form action="modificarPelicula" method="POST" >
+                                        <input type="hidden" name="id" value="<?php echo $movie->pelicula_id; ?>">
+                                        <button type="submit" name="editar">Editar</button>
+                                    </form>
                                 <?php endif; ?>
                             </div>
                         </a>
                     <?php endforeach; ?>
-                </div>
-            </form>
         </section>
         <?php if (AuthHelper::isAuthenticated()) : ?>
         <?php require_once "AddMoviesTemplate.phtml"; ?>

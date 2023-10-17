@@ -44,58 +44,15 @@
             </div>
             <div class="form-group">
                 <label>Director id</label>
-                <input required name="director_id" type="text" class="form-control">
+                <select name="director_id">
+                        <?php foreach ($directores as $director) : ?>
+                            <option value="<?php echo $director->director_id?>"> <?php echo $director->Nombre . " " . $director->Apellido ?></option>
+                        <?php endforeach ?>
+                    </select>
             </div>
             <button type="submit" class="btn btn-primary mt-2">Guardar pelicula</button>
         </div>
     </form>
-    <!--       <h4>Modificar Pelicula</h4>
-        <form class="formpelis" action="modificarPelicula" method="POST">
-            <div>
-                <div class="form-group">
-                    <label>id</label>
-                    <input required name="id" type="number" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Nombre</label>
-                    <input required name="nombre" type="text" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Genero/s (Separados por ,)</label>
-                    <input required name="genero" type="text" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Fecha de lanzamiento</label>
-                    <input required name="fecha" type="date" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Premios</label>
-                    <input required name="premios" type="text" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Duracion (En minutos)</label>
-                    <input required name="duracion" type="number" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Clasificacion de edad</label>
-                    <input required name="clasificacion" type="text" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Presupuesto</label>
-                    <input required name="presupuesto" type="number" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Estudio de produccion</label>
-                    <input required name="estudio" type="text" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Director id</label>
-                    <input required name="director_id" type="text" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-primary mt-2">Editar pelicula</button>
-            </div>
-        </form>
--->
 </body>
 
 </html>

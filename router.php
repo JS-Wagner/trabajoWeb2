@@ -2,7 +2,6 @@
 require_once './controladores/ErrorController.php';
 require_once './controladores/MovieController.php';
 require_once './controladores/SearchController.php';
-require_once './controladores/HomeController.php';
 require_once './controladores/DirectorController.php';
 require_once './controladores/AuthController.php';
 
@@ -20,8 +19,11 @@ BASE
 
 PELICULAS
 **      /buscarNombre       =>     searchMoviesByName();                        //muestra las peliculas que matchean el substring dado.
-**      /buscar             =>     showMoviesByGenres;                          //muestra las peliculas por generos seleccionados.
-terminalas compañero 👍
+**      /buscar             =>     showMoviesByGenres();                        //muestra las peliculas por generos seleccionados.
+**      /agregarPelicula    =>     MovieController->addMovie();                 //agrega la pelicula con los parametros del formulario.
+**      /agregarPelicula    =>     MovieController->removeMovie();              //elimina la pelicula.
+**      /editarPelicula     =>     MovieController->showEditMovieForm();        //muestra el formulario para editar peliculas.
+**      /modificarPelicula  =>     DirectorController->modificarPelicula();     //modifica la pelicula con los datos del formulario.
 
 AUTH
 **      /login ->           =>     authContoller->showLogin();                  //muestra el formulario de autenticación.
@@ -45,8 +47,8 @@ $params = explode('/', $action); // genera un arreglo
 
 switch ($params[0]) {
     case 'home':
-        $HomeController = new HomeController();
-        $HomeController->showHome();
+        $controller = new MovieController();
+        $controller->showHome();
         break;
     case 'buscarNombre':
         $names = explode('/', substr($action, 12));
@@ -57,7 +59,6 @@ switch ($params[0]) {
         $genres = array();
         foreach ($_GET as $parametro => $valor) {
             if ($valor == 'on') {
-                // El parámetro está seleccionado, agrégalo a la lista de géneros seleccionados
                 $genres[] .= $parametro;
             }
         }
@@ -127,18 +128,28 @@ switch ($params[0]) {
         }
         break;
     case 'agregarPelicula':
-        $controller = new HomeController();
+        $controller = new MovieController();
         $controller->addMovie();
         $controller->showHome();
         break;
     case 'eliminarPelicula':
-        $controller = new HomeController();
+        $controller = new MovieController();
         $controller->removeMovie();
         $controller->showHome();
         break;
     case 'modificarPelicula':
-        $controller = new HomeController();
-        $controller->modificarPelicula();
+        $movieId = isset($_POST['id']) ? $_POST['id'] : null;
+        if ($movieId) {
+            $MovieController = new MovieController();
+            $MovieController->showEditMovieForm($movieId);
+        } else {
+            $ErrorController = new ErrorController();
+            $ErrorController->showError404();
+        }
+        break;
+    case 'editarPelicula':
+        $controller = new MovieController();
+        $controller->editarPelicula();
         $controller->showHome();
         break;
     default:

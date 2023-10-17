@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MovieHunter</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+    <?php require_once 'Header.phtml'; ?>
+    <!-- Form de alta de directores -->
+    <h1>Modificar Pelicula</h1>
+    <form class="formpelis" action="editarPelicula" method="POST">
+        <div>
+                <div class="form-group">
+                    <!-- Agrega un campo hidden para el "id" prellenado -->
+                    <input type="hidden" name="id" value="<?php echo $movie->pelicula_id; ?>">
+                </div>
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input required name="nombre" type="text" class="form-control" value="<?php echo $movie->nombre; ?>">
+                </div>
+                <div class="form-group">
+                    <label>Genero/s (separados por ,)</label>
+                    <input required name="genero" type="text" class="form-control" value="<?php echo $movie->genero; ?>">
+                </div>
+                <div class="form-group">
+                    <label>Fecha de lanzmiento</label>
+                    <input required name="fecha" type="date" class="form-control" value="<?php echo $movie->{'fecha de lanzamiento'};?>">
+                </div>
+                <div class="form-group">
+                    <label>Premios</label>
+                    <input required name="premios" type="text" class="form-control" value="<?php echo $movie->premios;?>">
+                </div>
+                <div class="form-group">
+                    <label>Duracion (m)</label>
+                    <input required name="duracion" type="number" class="form-control" value="<?php echo $movie->{'duracion en min'};?>">
+                </div>
+                <div class="form-group">
+                    <label>Clasificacion de edad</label>
+                    <input required name="clasificacion" type="text" class="form-control" value="<?php echo $movie->{'clasificacion por edades'};?>">
+                </div>
+                <div class="form-group">
+                    <label>Presupuesto</label>
+                    <input required name="presupuesto" type="number" class="form-control" value="<?php echo $movie->{'presupuesto'};?>">
+                </div>
+                <div class="form-group">
+                    <label>Estudio de produccion</label>
+                    <input required name="estudio" type="text" class="form-control" value="<?php echo $movie->{'estudio de produccion'};?>">
+                </div>
+                <div class="form-group">
+                    <label>Director</label>
+                    <select name="director_id">
+                        <?php foreach ($directores as $director) : ?>
+                            <option value="<?php echo $director->director_id?>"> <?php echo $director->Nombre . " " . $director->Apellido ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+                
+            <button type="submit" class="btn btn-primary mt-2">Editar pelicula</button>
+        </div>
+    </form>
+    <?php require_once 'Footer.phtml'; ?>
+</body>
+
+</html>
