@@ -28,7 +28,13 @@ class DirectorModel
         }
         return $directors;
     }
-
+    public function getDirectorNameById($id){
+        $db = $this->connectToDatabase();
+        $query = $db->prepare("SELECT Nombre, Apellido FROM director WHERE director_id = ?");
+        $query->execute([$id]);
+        $result = $query->fetch(PDO::FETCH_OBJ);
+        return $result;
+    }
     public function getDirectorByID($sql)
     {
         $db = $this->connectToDatabase();

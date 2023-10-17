@@ -10,19 +10,22 @@
     <?php require_once "Header.phtml" ?>
     <main>
         <h1>Lista de directores: </h1>
-        <section class="movies">
+        <section>
             <form action="eliminardirector" method="POST">
-                <?php foreach ($directors as $director) : ?>
-                    <div class="movie">
-                        <img src="director1.jpg" alt="Foto Director">
-                        <h3><?php echo $director->{'Nombre'} ?></h3>
-                        <h3><?php echo $director->{'Apellido'} ?></h3>
-                        <?php if (AuthHelper::isAuthenticated()) : ?>
-                            <input type="hidden" name="id" value="<?php echo $director->director_id; ?>">
-                            <button type="submit" name="eliminar">Eliminar</button>
-                        <?php endif; ?>
-                    </div>
-                <?php endforeach; ?>
+                <div class="movies">
+                    <?php foreach ($directors as $director) : ?>
+                        <a href="director?id=<?php echo $director->{'director_id'}; ?>">
+                            <div class="movie">
+                                <h3><?php echo $director->{'Nombre'} ?></h3>
+                                <h3><?php echo $director->{'Apellido'} ?></h3>
+                                <?php if (AuthHelper::isAuthenticated()) : ?>
+                                    <input type="hidden" name="id" value="<?php echo $director->director_id; ?>">
+                                    <button type="submit" name="eliminar">Eliminar</button>
+                                <?php endif; ?>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
             </form>
         </section>
     </main>

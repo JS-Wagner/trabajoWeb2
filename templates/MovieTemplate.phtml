@@ -10,13 +10,10 @@
 
     <main>
         <section class="movie-details">
-            <div class="movie-image">
-                <img src="movie_detail.jpg" alt="<?php echo $movie->{'nombre'} ?>">
-            </div>
             <div class="movie-info">
                 <h2><?php echo $movie->{'nombre'} ?></h2>
                 <p><strong>Género: </strong><?php echo $movie->{'genero'} ?></p>
-                <p><strong>Director:</strong> <?php echo $movie->{'director_id'} ?></p>
+                <p><strong>Director:</strong></a><?php echo $directorName->{'Nombre'} . " " . $directorName->{'Apellido'} ?></p>
                 <p><strong>Fecha de Lanzamiento: </strong> <?php echo $movie->{'fecha de lanzamiento'} ?></p>
                 <p><strong>Premios: </strong><?php echo $movie->{'premios'} ?></p>
                 <p><strong>Duración: </strong><?php echo $movie->{'duracion en min'} ?></p>

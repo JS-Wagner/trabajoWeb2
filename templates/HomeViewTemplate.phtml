@@ -10,8 +10,8 @@
         <section class="hero">
             <h2>Las mejores películas en MovieHunter</h2>
             <p>¡Descubre una amplia selección de películas y series!</p>
-            <div id="form-genres">
-                <form action="buscar" method="get">
+            <div>
+                <form id="form-genres" action="buscar" method="get">
                     <div>
                         <input type="checkbox" name="Terror"> 
                         <h4>Terror</h4>
@@ -25,8 +25,52 @@
                         <h4>Crimen</h4>
                     </div>
                     <div>
-                        <input type="checkbox" name="Gore"> 
-                        <h4>Gore</h4>
+                        <input type="checkbox" name="Drama"> 
+                        <h4>Drama</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="Comedia"> 
+                        <h4>Comedia</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="Biografico"> 
+                        <h4>Biografico</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="Belico"> 
+                        <h4>Belico</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="Accion"> 
+                        <h4>Accion</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="Suspenso"> 
+                        <h4>Suspenso</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="Fantasia"> 
+                        <h4>Fantasia</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="Aventura"> 
+                        <h4>Aventura</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="Ciencia Ficcion"> 
+                        <h4>Ciencia Ficcion</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="Animacion"> 
+                        <h4>Animacion</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="Romance"> 
+                        <h4>Romance</h4>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="Catastrofe"> 
+                        <h4>Catastrofe</h4>
                     </div>
                     <div>
                         <input type="submit" value="Filtrar">
@@ -35,16 +79,26 @@
             </div>
         </section>
 
-        <section class="movies">
-            <?php foreach ($movies as $movie) : ?>
-                <a href="movie?id=<?php echo $movie->{'pelicula_id'}; ?>">
-                    <div class="movie">
-                        <img src="movie1.jpg" alt="Foto Película">
-                        <h3><?php echo $movie->{'nombre'}?></h3>
-                    </div>
-                </a>
-            <?php endforeach; ?>
+        <section>
+            <form action="eliminarPelicula" method="post">
+                <div class="movies">
+                    <?php foreach ($movies as $movie) : ?>
+                        <a href="movie?id=<?php echo $movie->{'pelicula_id'}; ?>">
+                            <div class="movie">
+                                <h3><?php echo $movie->{'nombre'}?></h3>
+                                <?php if (AuthHelper::isAuthenticated()) : ?>
+                                    <input type="hidden" name="id" value="<?php echo $movie->pelicula_id; ?>">
+                                    <button type="submit" name="eliminar">Eliminar</button>
+                                <?php endif; ?>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            </form>
         </section>
+        <?php if (AuthHelper::isAuthenticated()) : ?>
+        <?php require_once "AddMoviesTemplate.phtml"; ?>
+    <?php endif; ?>
     </main>
     <?php require_once "Footer.phtml" ?>
 </body>

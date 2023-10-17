@@ -45,7 +45,7 @@ class DirectorController
 
         $id = $this->directorModel->insertarDirector($nombre, $apellido, $nacionalidad);
         if ($id) {
-            header('Location: ' . BASE_URL . '/directores');
+            header('Location: ' . BASE_URL . 'directores');
         } else {
             $this->directorView->showError("Error al insertar la tarea");
         }
@@ -68,7 +68,7 @@ class DirectorController
         
         //ejecuto la operacion sql para borrarlo
         $this->directorModel->borrarDirector($directorId);
-        header('Location: ' . BASE_URL . '/directores');
+        header('Location: ' . BASE_URL . 'directores');
     } else {
         //si no lo encuentro largo error
         $ErrorController = new ErrorController();
@@ -92,6 +92,6 @@ class DirectorController
             return;
         }
         $this->directorModel->modificarDirector($id, $nombre, $apellido, $nacionalidad);
-        header('Location: ' . BASE_URL . '/directores');
+        header('Location: ' . BASE_URL . 'directores');
     }
 }

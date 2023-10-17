@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MovieHunter</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+    <h4>Agregar Pelicula</h4>
+    <form action="agregarPelicula" method="POST">
+        <div>
+            <div class="form-group">
+                <label>Nombre</label>
+                <input required name="nombre" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Genero/s (Separados por ,)</label>
+                <input required name="genero" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Fecha de lanzamiento</label>
+                <input required name="fecha" type="date" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Premios</label>
+                <input required name="premios" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Duracion (En minutos)</label>
+                <input required name="duracion" type="number" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Clasificacion de edad</label>
+                <input required name="clasificacion" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Presupuesto</label>
+                <input required name="presupuesto" type="number" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Estudio de produccion</label>
+                <input required name="estudio" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Director id</label>
+                <input required name="director_id" type="text" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Guardar pelicula</button>
+        </div>
+    </form>
+    <h4>Modificar Pelicula</h4>
+    <form action="modificarPelicula" method="POST">
+    <div>
+            <div class="form-group">
+                <label>id</label>
+                <input required name="id" type="number" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Nombre</label>
+                <input required name="nombre" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Genero/s (Separados por ,)</label>
+                <input required name="genero" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Fecha de lanzamiento</label>
+                <input required name="fecha" type="date" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Premios</label>
+                <input required name="premios" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Duracion (En minutos)</label>
+                <input required name="duracion" type="number" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Clasificacion de edad</label>
+                <input required name="clasificacion" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Presupuesto</label>
+                <input required name="presupuesto" type="number" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Estudio de produccion</label>
+                <input required name="estudio" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Director id</label>
+                <input required name="director_id" type="text" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Editar pelicula</button>
+        </div>
+    </form>
+</body>
+
+</html>

@@ -106,7 +106,22 @@ switch ($params[0]) {
         $controller->modificarDirector();
         $controller->showDirectors();
         break;
-    default:
+    case 'agregarPelicula':
+        $controller = new HomeController();
+        $controller->addMovie();
+        $controller->showHome();
+        break;
+    case 'eliminarPelicula':
+        $controller = new HomeController();
+        $controller->removeMovie();
+        $controller->showHome();
+        break;
+    case 'modificarPelicula':
+        $controller = new HomeController();
+        $controller-> modificarPelicula();
+        $controller-> showHome();
+        break;
+        default:
         // Cargar la vista de error 404
         $ErrorController = new ErrorController();
         $ErrorController->showError404();
