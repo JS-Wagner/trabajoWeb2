@@ -138,6 +138,7 @@ switch ($params[0]) {
         $controller->showHome();
         break;
     case 'modificarPelicula':
+        $controller = new MovieController();
         $movieId = isset($_POST['id']) ? $_POST['id'] : null;
         if ($movieId) {
             $MovieController = new MovieController();
