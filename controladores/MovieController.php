@@ -3,48 +3,55 @@ require_once './modelos/MovieModel.php';
 require_once './vistas/MovieView.php';
 require_once './helpers/AuthHelper.php';
 require_once './modelos/DirectorModel.php';
+require_once './modelos/Model.php';
 
-class MovieController{
+class MovieController
+{
     private $movieModel;
     private $movieView;
     private $directorModel;
+    private $model;
 
     public function __construct()
     {
         $this->movieModel = new MovieModel();
         $this->movieView = new MovieView();
         $this->directorModel = new DirectorModel();
+        $this->model = new Model();
     }
 
     public function showHome() {
         $sql = "SELECT * FROM peliculas";
-        $directores =  $this->directorModel->getAllDirectors("SELECT * FROM director WHERE 1");
+        $directores =  $this->directorModel->getAllDirectors();
         $movies = $this->movieModel->getAllMovies($sql);
         $this->movieView->renderHomeView($movies, $directores);
     }
 
     public function showMovie($id)
     {
-        $sql = "SELECT * FROM peliculas WHERE pelicula_id = $id";
-        $movie = $this->movieModel->getMovieByiD($sql);
+        $movie = $this->movieModel->getMovieByiD($id);
         $directorName = $this->directorModel->getDirectorNameById($movie->director_id);
-        $this->movieView->renderMovieView($movie, $directorName); 
+        $this->movieView->renderMovieView($movie, $directorName);
     }
 
     public function showEditMovieForm($id)
     {
         // Verifica si el usuario está autenticado
         AuthHelper::verify();
-        $sql = "SELECT * FROM peliculas WHERE pelicula_id = $id";
-        $directores =  $this->directorModel->getAllDirectors("SELECT * FROM director WHERE 1");
-        // Obtén los datos del director a editar
-        $movie = $this->movieModel->getMovieByID($sql);
+        // Modificamos la consulta SQL y la ejecución
+        $sql = "SELECT * FROM peliculas WHERE pelicula_id = ?";
+        $query = $this->model->getDB()->prepare($sql);
+        $query->execute([$id]);
+        $movie = $query->fetch(PDO::FETCH_OBJ);
 
         if ($movie) {
-            // Carga la vista del formulario de edición con los datos del director
+            // Obtenemos los datos de los directores usando la función getAllDirectors
+            $directores = $this->directorModel->getAllDirectors();
+
+            // Carga la vista del formulario de edición con los datos de la película y los directores
             $this->movieView->renderEditMovieForm($movie, $directores);
         } else {
-            $this->movieView->showError("Director no encontrado.");
+            $this->movieView->showError("Película no encontrada.");
         }
     }
 
@@ -79,13 +86,13 @@ class MovieController{
             AuthHelper::verify();
             // obtengo la ID del director a eliminar
             $movieId = $_POST['id'];
-            
+
             // validaciones
             if (empty($movieId)) {
                 $this->movieView->showError("ID de director no válido.");
                 return;
             }
-            
+
             //ejecuto la operacion sql para borrarlo
             $this->movieModel->borrarPelicula($movieId);
             header('Location: ' . BASE_URL . 'home');
@@ -115,8 +122,4 @@ class MovieController{
         $this->movieModel->editarPelicula($id, $nombre, $genero, $fecha, $premios, $duracion, $clasificacion, $presupuesto, $estudio, $director_id);
         header('Location: ' . BASE_URL . 'home');
     }
-
-    
 }
-
-?>

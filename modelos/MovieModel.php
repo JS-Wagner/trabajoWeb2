@@ -1,96 +1,81 @@
 <?php
 require_once './config.php';
-class MovieModel
+require_once 'Model.php';
+
+class MovieModel extends Model
 {
-    /*
-    Obtiene la lista de películas según su genero.
-    */
-
-    function connectToDatabase()
+    public function getAllMovies()
     {
-        try {
-            $db = new PDO('mysql:host=' . MYSQL_HOST . ';dbname=' . MYSQL_DB . ';charset=utf8', MYSQL_USER, MYSQL_PASS);
-            return $db;
-        } catch (PDOException $e) {
-            // Manejo de errores, (conexion fallida)
-            die('Error de conexión a la base de datos: ' . $e->getMessage());
-        }
-    }
-
-    public function getAllMovies($sql)
-    {
-        $db = $this->connectToDatabase();
-        $query = $db->prepare($sql);
-        $query->execute();
+        $sql = "SELECT * FROM peliculas";
+        $query = $this->db->query($sql);
         $movies = $query->fetchAll(PDO::FETCH_OBJ);
         return $movies;
     }
 
     public function getMoviesByGenres($sql)
     {
-        $db = $this->connectToDatabase();
-        $query = $db->prepare($sql);
+        $query = $this->db->prepare($sql);
         $query->execute();
         $movies = $query->fetchAll(PDO::FETCH_OBJ);
         return $movies;
     }
 
-    function getMoviesByYear($year)
+    public function getMoviesByYear($year)
     {
-        $db = $this->connectToDatabase();
-        $query = $db->prepare('SELECT * FROM peliculas WHERE YEAR(date) = :year');
-        $query->execute([':year' => $year]);
+        $sql = "SELECT * FROM peliculas WHERE YEAR(`fecha de lanzamiento`) = ?";
+        $query = $this->db->prepare($sql);
+        $query->execute([$year]);
         $movies = $query->fetchAll(PDO::FETCH_OBJ);
         return $movies;
     }
 
-    function getMoviesByDirector($director_id)
+    public function getMoviesByDirector($director_id)
     {
-        $db = $this->connectToDatabase();
-        $query = $db->prepare('SELECT * FROM peliculas WHERE director_id = ?');
+        $sql = "SELECT * FROM peliculas WHERE director_id = ?";
+        $query = $this->db->prepare($sql);
         $query->execute([$director_id]);
         $movies = $query->fetchAll(PDO::FETCH_OBJ);
         return $movies;
     }
 
-    function getMovieByiD($sql)
+    public function getMovieById($id)
     {
-        $db = $this->connectToDatabase();
-        $query = $db->prepare($sql);
-        $query->execute();
+        $sql = "SELECT * FROM peliculas WHERE pelicula_id = ?";
+        $query = $this->db->prepare($sql);
+        $query->execute([$id]);
         $movie = $query->fetch(PDO::FETCH_OBJ);
         return $movie;
     }
 
-    function getMoviesByName($nombre)
+    public function getMoviesByName($name)
     {
-        $db = $this->connectToDatabase();
-        $keyword = '%' . $nombre . '%'; // Agregar comodines para buscar cualquier coincidencia en el nombre
-        $query = $db->prepare('SELECT * FROM peliculas WHERE nombre LIKE :keyword');
-        $query->execute([':keyword' => $keyword]);
+        $sql = "SELECT * FROM peliculas WHERE nombre LIKE ?";
+        $query = $this->db->prepare($sql);
+        $query->execute(["%$name%"]);
         $movies = $query->fetchAll(PDO::FETCH_OBJ);
         return $movies;
     }
 
-    public function insertarPelicula($nombre, $genero, $fecha, $premios, $duracion, $clasificacion, $presupuesto, $estudio, $director)
+    public function insertarPelicula($nombre, $genero, $fecha, $premios, $duracion, $clasificacion, $presupuesto, $estudio, $director_id)
     {
-        $db = $this->connectToDatabase();
-        $query = $db->prepare('INSERT INTO peliculas (nombre, genero, `fecha de lanzamiento`, premios, `duracion en min`, `clasificacion por edades`, presupuesto, `estudio de produccion`, director_id) VALUES (?,?,?,?,?,?,?,?,?)');
-        $query->execute([$nombre, $genero, $fecha, $premios, $duracion, $clasificacion, $presupuesto, $estudio, $director]);
-        return $db->lastInsertId();
+        $sql = "INSERT INTO peliculas (nombre, genero, `fecha de lanzamiento`, premios, `duracion en min`, `clasificacion por edades`, presupuesto, `estudio de produccion`, director_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = $this->db->prepare($sql);
+        $query->execute([$nombre, $genero, $fecha, $premios, $duracion, $clasificacion, $presupuesto, $estudio, $director_id]);
+        return $this->db->lastInsertId();
     }
 
     public function borrarPelicula($id)
     {
-        $db = $this->connectToDatabase();
-        $query = $db->prepare('DELETE FROM peliculas WHERE pelicula_id = ?');
+        $sql = "DELETE FROM peliculas WHERE pelicula_id = ?";
+        $query = $this->db->prepare($sql);
         $query->execute([$id]);
     }
 
-    function editarPelicula($id, $nombre, $genero, $fecha, $premios, $duracion, $clasificacion, $presupuesto, $estudio, $director)
+    public function editarPelicula($id, $nombre, $genero, $fecha, $premios, $duracion, $clasificacion, $presupuesto, $estudio, $director_id)
     {
-        $db = $this->connectToDatabase();
-        $query = $db->prepare('UPDATE peliculas SET nombre = ?, genero = ?,`fecha de lanzamiento` = ?,`premios`= ?,`duracion en min`= ?,`clasificacion por edades`= ?, presupuesto = ?,`estudio de produccion`= ?,director_id = ? WHERE pelicula_id = ?');
-        $query->execute([$nombre, $genero, $fecha, $premios, $duracion, $clasificacion, $presupuesto, $estudio, $director, $id]);
+        $sql = "UPDATE peliculas SET nombre = ?, genero = ?, `fecha de lanzamiento` = ?, premios = ?, `duracion en min` = ?, `clasificacion por edades` = ?, presupuesto = ?, `estudio de produccion` = ?, director_id = ? WHERE pelicula_id = ?";
+        $query = $this->db->prepare($sql);
+        $query->execute([$nombre, $genero, $fecha, $premios, $duracion, $clasificacion, $presupuesto, $estudio, $director_id, $id]);
     }
 }
+?>
